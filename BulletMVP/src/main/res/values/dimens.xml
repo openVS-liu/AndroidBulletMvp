@@ -1,0 +1,7 @@
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="mvp_titlebar_height">44dp</dimen>
+    <dimen name="mvp_title_size">18sp</dimen>
+    <dimen name="mvp_default_padding">16dp</dimen>
+
+</resources>

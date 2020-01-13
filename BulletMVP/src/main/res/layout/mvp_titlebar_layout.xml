@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/mvp_titlebar_height"
+    android:background="@drawable/mvp_titlebar_bg"
+    android:paddingLeft="@dimen/mvp_default_padding"
+    android:paddingRight="@dimen/mvp_default_padding">
+
+</RelativeLayout>

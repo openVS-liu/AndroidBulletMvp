@@ -1,0 +1,62 @@
+<?xml version="1.0"?>
+<template
+    format="5"
+    revision="5"
+    name="mvpFragment"
+    minApi="7"
+    minBuildApi="14"
+    description="敏捷开发mvp框架模块，用于创建Fragment、Presenter以及布局文件">
+
+    <category value="Fragment" />
+    <formfactor value="Mobile" />
+
+    <!-- input data -->
+    
+
+    <parameter
+        id="moudle"
+        name="业务模块名称"
+        type="string"
+        default=""
+        help="只需要输入名称，该名称会自动生成Fragment以及Presenter前面" />
+     
+    <parameter
+        id="isShowTitleBar"
+        name="是否显示titleBar"
+        type="boolean"
+        default="true"
+        help="是否显示titleBar" />
+    <parameter
+        id="title"
+        name="业务模块的名称"
+        type="string"
+        default=""
+        visibility="isShowTitleBar"
+        help="此标题会显示在titleBar中间" />
+
+    <parameter
+        id="layout"
+        name="布局文件名称"
+        type="string"
+        default=""
+        help="最终生成名称为activity_layout" />
+
+   
+    <parameter
+        id="userKotLinExtensions"
+        name="是否使用kotlin的扩展插件"
+        type="boolean"
+        default="true"
+        help="如果选择使用，会自动导入kotlinx.android.synthetic .....文件" />
+
+
+    <!-- 128x128 thumbnails relative to com.puke.template.xml -->
+    <thumbs>
+        <!-- default thumbnail is required -->
+        <thumb>template_cover.png</thumb>
+    </thumbs>
+
+    <globals file="globals.xml.ftl" />
+    <execute file="recipe.xml.ftl" />
+
+</template>
