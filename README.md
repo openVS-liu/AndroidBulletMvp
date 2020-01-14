@@ -53,8 +53,143 @@ HomeActivity通过泛型关联了HomePresenter，并且通过ViewInit注解完�
  ```
  编译并部署到设备效果如下图  
  
-![image](https://github.com/openVS-liu/AndroidBulletMvp/blob/master/images/result11.png)
+![image](https://github.com/openVS-liu/AndroidBulletMvp/blob/master/images/result11.png)   
+### 定制自己项目的网络请求模块 
+AndroidBulletMvp的网络模块基于okhttp3.X.X,通过kotlin的协程技术进行二次封装。目标是通过协程技术减少线程的开销从而提高性能。
+通过减少重复代码从而提升开发效率（网络链接失败、服务器异常、接口返回数据不符合规范等错误处理都在框架中封装处理，业务层代码不需要关心。如果遇到特效需求也可以简便的重写异常处理。）
+#### 使用效果展示
+```
+ fun requestCityList() {
+            StructRequestClient.with(this) //this是Container接口，提供了请求的错误处理、以及请求的生命周期管理等方法。   
+                                           // AndroidBulletMvp中 fragment、activity,presenter都实现了Container接口，  
+                                          // 所以在什么地方发起网络请求 ，都可以方便的使用"this"                                      
+            
+            .setUrl("/apis/CityCode/")
+            .addParameter("code", "13")
+            .setTargetObjectClass(City::class.java) // 规定了请求到的json数据的指定节点要解析成什么对象，程序会根据json数据是对象或者是                                                         //array自动判断需要解析成单个对象或者解析成List
+            .setOnSuccessListener { targetObject, _ ->
+                view.displayCity(targetObject as List<City>)    //targetObject是解析结果，直接用于业务处理即可。
+            }
+            .sendRequest()
+  }
+```
+#### StructRequestClient简析、了解如何根据自己的业务封装自己的"StructRequestClient简析"
+```
+/**
+ * 自定义RequestClient的demo
+ */
+class StructRequestClient : RequestClient() {   //继承自RequestClient类
+    var container: Container? = null
+    var showLoadingView = true                 //请求的过程中是否需要显示加载页面，默认显示。
 
+    /**
+     * 结合自己的业务实际需求，构建Request对象。构建Request对象的构建方法请参照okHttp文档
+     * 这部分是需要结合自己业务订制，本方法以一个GET请求为例构造了Request对象。
+     */
+    override fun createRequest(): Request {   
+        val sb = StringBuilder()
+        if (!url.startsWith("http")) {
+            sb.append(serverUrl)
+        }
+        sb.append(url)
+        var buider = Request.Builder()
+        if (parameters != null && parameters.size > 0) {
+            var index = 0
+            for ((key, value) in parameters) {
+                sb.append(if (index == 0) '?' else "&").append(key).append('=').append(value)
+                index++
+            }
+        }
+        buider.url(sb.toString())
+        if (headers != null && headers.size > 0) {
+            for ((key, value) in headers) {
+                buider.addHeader(key, value)
+            }
+        }
+        return buider.build();
+    }
+
+    /**
+     * 返回数据解析器，根据自己业务的数据格式定义
+     * StructParser()是一个数据解析的示例类 适用于接口数据格式类似于{"code":0,"data":{},"msg":"错误原因"}或者"code":0,"data":    
+     *  [],"msg":"错误原因"}的格式。如果你的项目也是采用类似的格式，可以稍加改动后使用
+     */
+    override fun getParser(): Parser {
+        return StructParser()
+    }
+    /**
+     * 返回接口请求时所用的服务器域名
+     */
+    override fun getServerUrl(): String {
+        return "http://api.help.bj.cn"
+    }
+
+    /**
+     * 自定义发送http请求
+     * 在super.sendRequest()发送请求之前、判断要不要显示加载页面
+     */
+    override fun sendRequest() {
+        if (showLoadingView) {
+            container?.showLoadingView("")
+        }
+        super.sendRequest()
+    }
+
+    companion object {  //通过伴生对象的类方法构造StructRequestClient实例，复用Container接口的处理代码。
+        /**
+         * 简化StructRequestClient对象的配置，Container对象封装了通用的设置。
+         */
+        fun with(container: Container): StructRequestClient {
+            val client = StructRequestClient()
+            client.container = container
+            with(client) {
+                setOnBreachAgreementListenr(container)  //数据不符合预定义错误处理
+                setOnFailListener(container)//请求出错处理
+                if (showLoadingView) {
+                    setOnFinishListener(object : OnFinishListener { //请求完成处理
+                        override fun onFinish() {
+                            container.closeLoadingView()
+                            container.onFinish()
+                        }
+                    })
+                } else {
+                    setOnFinishListener(container)
+                }
+                setLifecycle(container.getLifecycle()) //绑定 activity或者fragment的生命周期
+                setContext(container.getContext())
+            }
+            return client
+        }
+    }
+}
+```
+
+## 常用API
+ViewInit注解提供了如下方法
+```
+public @interface ViewInit {
+    int layout() default 0;  //页面布局文件的layoutId
+
+    String title() default ""; // titleBar 需要显示的标题
+
+    boolean showBackButton() default true; // 是否显示返回按钮
+
+    boolean showTitleBar() default true; // 是否显示titleBar
+
+    boolean contentViewBlowTitleBar() default true; // layout视图是否需要显示在titleBar下方，
+
+    int titleLayoutId() default 0; // 使用自定义的titilBar布局文件，必须是一个Relative Layout
+
+
+}
+```
+IView接口提供的方法(Activity.Fragemt都实现了此接口)
+
+ 方法名称  | 参数  | 释意
+ ---- | ----- | ------  
+  addView(view: View?) | view：需要添加到当前页面的View |  如果当前页面有titleBar，则view填满titleBar以下部分，否则全屏。
+   addView(layoutId: Int) | layoutId：需要添加到当前页面的layout |  如果当前页面有titleBar，则view填满titleBar以下部分，否则全屏。
+ 单元格内容  | 单元格内容 | 单元格内容 
 
 
 ## 轻量级 
