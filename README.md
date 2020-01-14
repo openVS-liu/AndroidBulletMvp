@@ -4,8 +4,13 @@ AndroidBulletMvp是一个轻量级、高效开发、高效运行的Android开发
 1. 在module添加AndroidBulletMvp的远程依赖库 implementation 'androidx.appcompat:appcompat:1.1.0' 
 2.添加模板 下载项目根目录下temples文件夹中的两个模板文件夹（mvpActiviy、mvpFrament）并保存到Android Studio模块文件夹下。
   如果是Mac操作系统则默认为/Applications/Android Studio.app/Contents/plugins/android/lib/templates, Windows系统的话由于差异比较大，就  默认为空了，可以自行配置[Android Studio安装目录]/plugins/android/lib/templates（这里只需要配置一次即可，插件将自动保存该位置）。
-3.使用模板创建View 、Presenter以及layout布局文件。右击任意package目录- New - Activity -mvpAcitiviy，输入该模块的信息后就可以在这个package中生成对应的类文件以及关联好对应的layout文件
-  ![image](https://github.com/MaiEmily/map/blob/master/public/image/20190528145810708.png)
+3.使用模板创建View 、Presenter以及layout布局文件。
+   右击任意package目录- New - Activity -mvpAcitiviy。
+  ![image](https://github.com/openVS-liu/AndroidBulletMvp/blob/master/images/2020-01-111.png)
+  填写模块信息
+  ![image](https://github.com/openVS-liu/AndroidBulletMvp/blob/master/images/2020-01-13.png)
+  在之前右击的package生成View 、Presenter类文件以及在layout文件夹中生成关联的布局文件。
+
 
 ## 轻量级 
   整个框架引用了如下类库外，作者多写代码不足千行。
