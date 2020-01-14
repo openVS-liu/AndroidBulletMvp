@@ -187,19 +187,16 @@ IView接口提供的方法(Activity.Fragemt都实现了此接口)
 
  方法名称  | 参数  | 释意
  ---- | ----- | ------  
-  addView(view: View?) | view：需要添加到当前页面的View |  如果当前页面有titleBar，则view填满titleBar以下部分，否则全屏。
-   addView(layoutId: Int) | layoutId：需要添加到当前页面的layout |  如果当前页面有titleBar，则view填满titleBar以下部分，否则全屏。
- 单元格内容  | 单元格内容 | 单元格内容 
+ addView(view: View?) | view：需要添加到当前页面的View |  如果当前页面有titleBar，则view填满titleBar以下部分，否则全屏。  
+ addView(layoutId: Int) | layoutId：需要添加到当前页面的layout  |  如果当前页面有titleBar，则view填满titleBar以下部分，否则全屏。  
+ setTitle(view: View?)  | view  |  把view添加到titleBar中间，当做标题。  
+ setTitle(title: String?) | title  |  把title添加到titleBar中间，当做标题。  
+addRightButton(view: View?) | view | 把view添加到titleBar的右上方，可以添加多个。  
+showLoadingView(text: String?) | text  | 显示加载框，并显示文案text  
+cloaseLoadingView() | 无 | 关闭加载框  
 
 
-## 轻量级 
-  整个框架引用了如下类库外，作者多写代码不足千行。
 
-``` implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.2"
-    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.3.2'
-    api 'com.squareup.okhttp3:okhttp:3.12.0'
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    implementation 'androidx.appcompat:appcompat:1.1.0' ```
     
 
 
