@@ -9,7 +9,46 @@ AndroidBulletMvp是一个轻量级、高效开发、高效运行的Android开发
   ![image](https://github.com/openVS-liu/AndroidBulletMvp/blob/master/images/2020-01-111.png)
   填写模块信息
   ![image](https://github.com/openVS-liu/AndroidBulletMvp/blob/master/images/2020-01-13.png)
-  在之前右击的package生成View 、Presenter类文件以及在layout文件夹中生成关联的布局文件。
+  在之前右击的package生成View 、Presenter类文件以及在layout文件夹中生成关联的布局文件。  
+  
+  HomeActivity通过泛型关联了HomePresenter，并且通过ViewInit注解完成了页面的初始化工作，当前页面显示的layout布局文件是 R.layout.activity_home，并且展示标题为"城市列表"的titleBar。HomeActivity中可以通过present对象调用HomePresenter中封装的方法。presenter对象在HomeActivity中的父类MvpActivity中已经初始化，无需再次初始化。
+  ```
+  @ViewInit(layout = R.layout.activity_home, title = "城市列表")
+ class HomeActivity : MvpActivity<HomePresenter?>() {
+    var adapter = CityAdapter()
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+
+        super.onCreate(savedInstanceState)
+    }
+  }
+  
+  ```
+  HomePresenter通过泛型关联了HomeActivity，并且可以通过view对象直接调用HomeActivity所封装的方法。view对象在HomePresenter的父类Presenter中已经初始化，无需在HomePresenter再次初始化。
+  
+  ```
+  class HomePresenter : Presenter<HomeActivity>() {
+
+    override fun onCreate(@NonNull owner: LifecycleOwner) {
+        super.onCreate(owner)
+
+    }
+ }
+ ```
+ activity_home.xml布局文件是一个空的constraintlayout布局。
+ ```
+  <?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="16dp"
+    tools:context=".home.HomeActivity">
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+ ```
+  
 
 
 ## 轻量级 
