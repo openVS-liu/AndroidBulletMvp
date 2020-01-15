@@ -304,20 +304,22 @@ public @interface ViewInit {
 }
 ```
 #### IView接口提供的方法(Activity.Fragemt都实现了此接口)
- ```
- /**
- * 设置显示在titleBar上面的标题
- */
-  fun setTitle(title: String?)
+
+```
+   /**
+   * 设置显示在titleBar上面的标题
+   */
+   fun setTitle(title: String?)
   
-  /**
+    /**
      * 把view当做标题在titleBar上面
      */
-    fun setTitle(view: View?)
+   fun setTitle(view: View?)
     
     /**
      * 
-     * 添加id=layoutId的布局文件到当前页面，覆盖在页面最顶层。默认的layoutParams会判断页面是否有titleBar，有过有则显示在titleBar
+     * 添加id=layoutId的布局文件到当前页面，覆盖在页面最顶层。默认的layoutParams会判断页面是否有titleBar，有过有则显示在 
+     *titleBar
      * 底部，如果没有则全屏显示。
     */
      
@@ -353,6 +355,14 @@ public @interface ViewInit {
      * 关闭加载框
      */
     override fun closeLoadingView() 
-    ```
+    
+```
+
+ 
+
+
+
+
+    
 
  
