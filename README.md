@@ -82,6 +82,7 @@ AndroidBulletMvp的网络模块基于okhttp3.X.X,通过kotlin的协程技术进�
 通过减少重复代码从而提升开发效率（网络链接失败、服务器异常、接口返回数据不符合规范等错误处理都在框架中封装处理，业务层代码不需要关心。如果遇到特效需求也可以简便的重写异常处理。）
 #### 使用效果展示
 ```
+ kotlin 中调用
  fun requestCityList() {
             StructRequestClient.with(this) //this是Container接口，提供了请求的错误处理、以及请求的生命周期管理等方法。   
                                            // AndroidBulletMvp中 fragment、activity,presenter都实现了Container接口，  
@@ -95,6 +96,21 @@ AndroidBulletMvp的网络模块基于okhttp3.X.X,通过kotlin的协程技术进�
             }
             .sendRequest()
   }
+  java中调用
+
+  private void requestCityList() {
+         StructRequestClient.Companion.with(this)
+                 .setUrl("/apis/CityCode/")
+                 .addParameter("code", "13")
+                 .setTargetObjectClass(City.class)
+                 .setOnSuccessListener(new OnSuccessListener<List<City>>() {
+                     @Override
+                     public void onSuccess(List<City> targetObject, HashMap<String, Object> mapObjects) {
+                         view.displayCity(targetObject);
+                     }
+                 }).sendRequest();
+     }
+
 ```
 #### StructRequestClient简析、了解如何根据自己的业务封装自己的"StructRequestClient简析"
 ```
