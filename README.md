@@ -164,8 +164,128 @@ class StructRequestClient : RequestClient() {   //继承自RequestClient类
 }
 ```
 
+#### RequestClient提供的方法
+
+```
+ /**
+     * 构建Request对象
+     * @return Request
+     */
+    protected abstract Request createRequest();
+
+    /**
+     * 返回数据解析器
+     * @return Parser是一个抽象类，要根据真实业务重写 parseData(String data)方法，
+     * 具体方法请参考Demo中的structParser类，如果只需要把数据库请求到的字符串返回给业务层，可以直接
+     * 返回DefaultParser对象
+     */
+    protected abstract Parser getParser();
+
+    /**
+     * 返回服务器地址
+     * @return
+     */
+    protected abstract String getServerUrl();
+
+    /**
+     * 添加http请求头
+     * @param key 请求头名称
+     * @param value 请求头名称请求头值
+     * @return RequestClient
+     */
+    public RequestClient addHeader(String key, String value)
+    
+    /**
+     * 添加http请求参数
+     * @param key 参数名称
+     * @param value 参数值
+     * @return RequestClient
+     */
+    public RequestClient addParameter(String key, String value)
+    
+    /**
+     * 设置需要把数据解析成那个Class的对象。在demo中的SructParser中，会把{"status":0,data:{},"msg":""}或者{"status":0,data:{},"msg":""}
+     * 格式的json字符串中data节点解析为targetObjectClass对象或者targetObjectClass类型的List
+     * @param targetObjectClass 指定解析类型的的Class
+     * @return
+     */
+    public RequestClient setTargetObjectClass(Class<?> targetObjectClass)
+    
+     /**
+     * 设置打印日志的tag，通过此tag可以在logCat中过滤本次网络请求的日志
+     * @param tag
+     * @return
+     */
+    public RequestClient setLogTag(String tag)
+    /**
+     * 设置是否可以打印请求信息以及返回的信息
+     * @param logEnable 建议release版本设置为false，debug版本设置为true
+     * @return
+     */
+    public RequestClient setLogEnable(boolean logEnable)
+     /**
+     * 设置请求所依附的生命周期
+     * @param lifecycle 生命周期
+     * @return
+     */
+    public RequestClient setLifecycle(Lifecycle lifecycle)
+    
+    /**
+     * 设置请求的url
+     * @param url ，可以是完整的http、https路径。如果在getServerUrl()中返回了非空的服务器地址，url也可以只有path字符串。
+     * @return
+     */
+    public RequestClient setUrl(String url) {
+        this.url = url;
+        return this;
+    }
+    
+     /**
+     * 设置请求失败的回调监听
+     * @param listener
+     * @return
+     */
+    public RequestClient setOnFailListener(OnFailListener listener)
+    
+    /**
+     * 设置请求并解析成功的回调监听
+     * @param listener
+     * @return
+     */
+    public RequestClient setOnSuccessListener(OnSuccessListener listener) 
+    
+    /**
+     * 设置请求结束的回调监听，无论请求是否成功都会调用此回调
+     * @param listener
+     * @return
+     */
+    public RequestClient setOnFinishListener(OnFinishListener listener)
+    
+    /**
+     * 设置请求到的数据，不符合协议的回调监听。例如{"status":0,data:{},"msg":""}格式的数据，约定了只有status==0时时正常请求，否则都是
+     * 异常不符合协议的情况。此时会吧statue值和msg异常详情回调给业务代码。
+     * @param listener
+     * @return
+     */
+    public RequestClient setOnBreachAgreementListener(OnBreachAgreementListener listener)
+    
+     /**
+     * 取消本次请求
+     * 和设置的Lifecycle的生命周期绑定，当Lifecycle调用onDestroy()时候 cancle()会自动调用
+     */
+    @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
+    private void cancel()
+    
+     /**
+     * 发送请求，通过kotlin的协程技术、调用okhttp的同步请求方法，减少线程的开销从而提高运行性能
+     */
+    @Override
+    public void sendRequest()
+    
+```
+
 ## 常用API
-ViewInit注解提供了如下方法
+#### ViewInit注解提供了如下方法
 ```
 public @interface ViewInit {
     int layout() default 0;  //页面布局文件的layoutId
@@ -183,20 +303,56 @@ public @interface ViewInit {
 
 }
 ```
-IView接口提供的方法(Activity.Fragemt都实现了此接口)
-
- 方法名称  | 参数  | 释意
- ---- | ----- | ------  
- addView(view: View?) | view：需要添加到当前页面的View |  如果当前页面有titleBar，则view填满titleBar以下部分，否则全屏。  
- addView(layoutId: Int) | layoutId：需要添加到当前页面的layout  |  如果当前页面有titleBar，则view填满titleBar以下部分，否则全屏。  
- setTitle(view: View?)  | view  |  把view添加到titleBar中间，当做标题。  
- setTitle(title: String?) | title  |  把title添加到titleBar中间，当做标题。  
-addRightButton(view: View?) | view | 把view添加到titleBar的右上方，可以添加多个。  
-showLoadingView(text: String?) | text  | 显示加载框，并显示文案text  
-cloaseLoadingView() | 无 | 关闭加载框  
-
-
-
+#### IView接口提供的方法(Activity.Fragemt都实现了此接口)
+ ```
+ /**
+ * 设置显示在titleBar上面的标题
+ */
+  fun setTitle(title: String?)
+  
+  /**
+     * 把view当做标题在titleBar上面
+     */
+    fun setTitle(view: View?)
     
+    /**
+     * 
+     * 添加id=layoutId的布局文件到当前页面，覆盖在页面最顶层。默认的layoutParams会判断页面是否有titleBar，有过有则显示在titleBar
+     * 底部，如果没有则全屏显示。
+    */
+     
+    fun addView(layoutId: Int,layoutParams:FrameLayout.LayoutParams?=contentLayoutParams)
+    
+     /**
+     * 添加view，覆盖在页面最顶层。默认的layoutParams会判断页面是否有titleBar，有过有则显示在titleBar
+     * 底部，如果没有则全屏显示。
+     */
+    fun addView(view: View?,layoutParams:FrameLayout.LayoutParams?=contentLayoutParams)
+    
+     /**
+     * 在titleBar右上角显示的view，可以添加多个。会横向排列
+     */
+    fun addRightButton(view: View?): View?
+    
+     /**
+     * 在titleBar右上角显示的文字，可以添加多个。会横向排列
+     * text 显示的文字
+     * onClickListener 文本点击的回调
+     */
+    fun addRightButton(text: String?, onClickListener: View.OnClickListener?): View?
+    /**
+     * 把view添加到titleBar左上角，替换默认的返回按钮
+     */
+    fun addLeftButton(view: View?)
+     /**
+     * 显示加载框
+     * text 加载文案
+     */
+    override fun showLoadingView(text: String?)
+    /**
+     * 关闭加载框
+     */
+    override fun closeLoadingView() 
+    ```
 
-
+ 
