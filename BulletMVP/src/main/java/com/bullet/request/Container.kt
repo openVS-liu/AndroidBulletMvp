@@ -8,6 +8,4 @@ interface Container : OnFinishListener, OnBreachAgreementListener, OnFailListene
     fun getLifecycle():Lifecycle
     fun showLoadingView(text:String?)
     fun closeLoadingView()
-
-
 }

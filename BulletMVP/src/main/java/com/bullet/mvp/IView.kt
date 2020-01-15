@@ -39,10 +39,10 @@ interface IView : Container {
         contentLayoutParams = FrameLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
 
         if (viewInit?.showTitleBar!!) {
-            titleBar = LayoutInflater.from(getContext()).inflate(if (viewInit!!.titleLayouId != 0) viewInit!!.titleLayouId else R.layout.mvp_titlebar_layout, null) as RelativeLayout
-            rootView?.addView(titleBar,FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,getContext().resources.getDimensionPixelSize(R.dimen.mvp_titlebar_height)))
+            titleBar = LayoutInflater.from(getContext()).inflate(if (viewInit!!.titleLayoutId != 0) viewInit!!.titleLayoutId else R.layout.mvp_titlebar_layout, null) as RelativeLayout
+            rootView?.addView(titleBar,FrameLayout.LayoutParams(FrameLayout.LayoutParams.MATCH_PARENT,getContext().resources.getDimensionPixelSize(R.dimen.mvp_titleBar_height)))
             if (viewInit?.contentViewBlowTitleBar!!) {
-                contentLayoutParams!!.topMargin =getContext().resources.getDimensionPixelSize(R.dimen.mvp_titlebar_height)
+                contentLayoutParams!!.topMargin =getContext().resources.getDimensionPixelSize(R.dimen.mvp_titleBar_height)
             }
             if (!TextUtils.isEmpty(viewInit!!.title)) {
                 setTitle(viewInit!!.title)
@@ -62,35 +62,50 @@ interface IView : Container {
         imageView.setOnClickListener { view: View? -> back(view) }
     }
 
-
+    /**
+     * 设置显示在titleBar上面的标题
+     */
     fun setTitle(title: String?) {
         var textView = titleBar!!.findViewWithTag<TextView>("title")
         if (textView == null) {
             textView = TextView(getContext())
-            textView.textSize = 18f
+            textView.textSize = getContext().resources.getDimension(R.dimen.mvp_title_size)
             textView.setTextColor(getContext().resources.getColor(R.color.mvp_title_text_color))
             setTitle(textView)
         }
         textView.setText(title)
     }
 
-    fun addView(resId: Int) {
-        val view = LayoutInflater.from(getContext()).inflate(resId, null)
-        addView(view)
+    /**
+     *
+     * 添加id=layoutId的布局文件到当前页面，覆盖在页面最顶层。默认的layoutParams会判断页面是否有titleBar，有过有则显示在titleBar
+     * 底部，如果没有则全屏显示。
+    */
+
+    fun addView(layoutId: Int,layoutParams:FrameLayout.LayoutParams?=contentLayoutParams) {
+        val view = LayoutInflater.from(getContext()).inflate(layoutId, null)
+        addView(view,layoutParams)
     }
 
-
-    fun addView(view: View?) {
-        rootView?.addView(view, contentLayoutParams)
+    /**
+     * 添加view，覆盖在页面最顶层。默认的layoutParams会判断页面是否有titleBar，有过有则显示在titleBar
+     * 底部，如果没有则全屏显示。
+     */
+    fun addView(view: View?,layoutParams:FrameLayout.LayoutParams?=contentLayoutParams) {
+        rootView?.addView(view, layoutParams)
     }
-
+    /**
+     * 把view当做标题在titleBar上面
+     */
     fun setTitle(view: View?) {
         val layoutParams = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT)
-
         titleBar!!.addView(view, layoutParams)
     }
 
+    /**
+     * 在titleBar右上角显示的view，可以添加多个。会横向排列
+     */
     fun addRightButton(view: View?): View? {
         if (titleBar != null) {
             if (rightButtonGroup == null) {
@@ -109,17 +124,23 @@ interface IView : Container {
         }
         return null
     }
-
+    /**
+     * 在titleBar右上角显示的文字，可以添加多个。会横向排列
+     * text 显示的文字
+     * onClickListener 文本点击的回调
+     */
     fun addRightButton(text: String?, onClickListener: View.OnClickListener?): View? {
         val textView = TextView(getContext())
         textView.text = text
-        textView.setTextColor(Color.WHITE)
-        textView.textSize = 12f
+        textView.setTextColor(getContext().resources.getColor(R.color.mvp_title_bar_right_button_color))
+        textView.textSize = getContext().resources.getDimension(R.dimen.mvp_title_bar_right_button_text_size)
         textView.setOnClickListener(onClickListener)
         return addRightButton(textView)
     }
 
-
+    /**
+     * 把view添加到titleBar左上角，替换默认的返回按钮
+     */
     fun addLeftButton(view: View?) {
         val params = RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT)
         params.addRule(RelativeLayout.CENTER_VERTICAL)
@@ -127,13 +148,22 @@ interface IView : Container {
         params.leftMargin = defaultPadding
         titleBar!!.addView(view, params)
     }
-
+    /**
+     * 显示加载框
+     * text 加载文案
+     */
     override fun showLoadingView(text: String?) {
         val loadingView = LayoutInflater.from(getContext()).inflate(R.layout.mvp_loading_progress, null)
+        if (!text.isNullOrBlank()){
+            val loadingTextView=loadingView.findViewById<TextView>(R.id.loading_text)
+            loadingTextView.text=text
+        }
         addView(loadingView)
         loadingView.tag = "loading"
     }
-
+    /**
+     * 关闭加载框
+     */
     override fun closeLoadingView() {
         val loadingView = rootView?.findViewWithTag<View>("loading")
         if (loadingView != null) {

@@ -16,17 +16,17 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ViewInit {
-    int layout() default 0;
+    int layout() default 0;  //页面布局文件的layoutId
 
-    String title() default "";
+    String title() default ""; // titleBar 需要显示的标题
 
-    boolean showBackButton() default true;
+    boolean showBackButton() default true; // 是否显示返回按钮
 
-    boolean showTitleBar() default true;
+    boolean showTitleBar() default true; // 是否显示titleBar
 
-    boolean contentViewBlowTitleBar() default true;
+    boolean contentViewBlowTitleBar() default true; // layout视图是否需要显示在titleBar下方，
 
-    int titleLayouId() default 0;
+    int titleLayoutId() default 0; // 使用自定义的titilBar布局文件，必须是一个Relative Layout
 
 
 }

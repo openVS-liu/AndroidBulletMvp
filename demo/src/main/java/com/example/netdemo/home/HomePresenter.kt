@@ -12,7 +12,7 @@ class HomePresenter : Presenter<HomeActivity>() {
 
     override fun onCreate(@NonNull owner: LifecycleOwner) {
         super.onCreate(owner)
-        requestCityList()
+//        requestCityList()
     }
 
     fun requestCityList() = StructRequestClient.with(this)

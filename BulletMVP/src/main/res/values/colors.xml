@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="mvp_title_text_color">#000</color>
-    <color name="mvp_title_bar_bg_color">#00574B</color>
+    <!--标题文字颜色 -->
+    <color name="mvp_title_text_color">@android:color/white</color>
+    <!-- titleBar背景色 -->
+    <color name="mvp_title_bar_bg_color">@android:color/holo_blue_dark</color>
+    <!-- titleBar底部的分割线颜色 -->
     <color name="mvp_title_bar_diver_color">@android:color/darker_gray</color>
+    <!-- titleBar添加到右上角的文本的颜色 -->
+    <color name="mvp_title_bar_right_button_color">@android:color/white</color>
 </resources>

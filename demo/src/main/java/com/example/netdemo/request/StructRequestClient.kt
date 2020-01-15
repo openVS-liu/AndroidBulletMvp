@@ -71,7 +71,7 @@ class StructRequestClient : RequestClient() {
             val client = StructRequestClient()
             client.container = container
             with(client) {
-                setOnBreachAgreementListenr(container)
+                setOnBreachAgreementListener(container)
                 setOnFailListener(container)
                 if (showLoadingView) {
                     setOnFinishListener(object : OnFinishListener {
