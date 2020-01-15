@@ -1,19 +1,17 @@
 package  com.bullet.mvp;
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.DialogInterface
-import android.graphics.Color
 import android.text.TextUtils
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.util.DisplayMetrics
+import android.view.*
 import android.widget.*
 import com.bullet.request.Container
 import com.bullet.request.IRequest
-
 import com.example.net.R
 import java.util.*
+
 
 interface IView : Container {
     var viewInit: ViewInit?
@@ -69,7 +67,15 @@ interface IView : Container {
         var textView = titleBar!!.findViewWithTag<TextView>("title")
         if (textView == null) {
             textView = TextView(getContext())
-            textView.textSize = getContext().resources.getDimension(R.dimen.mvp_title_size)
+            val windowManager = getContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager
+            var textSize=16.0f
+            if (windowManager != null) {
+                val outMetrics = DisplayMetrics()
+                windowManager.defaultDisplay.getMetrics(outMetrics)
+                val density = outMetrics.density
+                textSize=getContext().resources.getDimension(R.dimen.mvp_title_size)/density
+            }
+            textView.textSize =textSize
             textView.setTextColor(getContext().resources.getColor(R.color.mvp_title_text_color))
             setTitle(textView)
         }
