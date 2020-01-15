@@ -24,6 +24,8 @@ allprojects {
         google()
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
         jcenter()
+        maven { url 'https://jitpack.io' }
+
 
     }
     tasks.withType(Javadoc) {

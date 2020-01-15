@@ -1,14 +1,37 @@
 # AndroidBulletMvp
-AndroidBulletMvp是一个轻量级、高效开发、高效运行的Android开发框架，可以最大限度解放开发者、是开发者把全部精力都集中在业务开发上。而不用编写那些重复性、功能逻辑相同的代码。比如每个页面都有一个相同的titleBar。每一次网络请求都需要处理成功、失败，以及数据和预定义的不一致问题。这些问题在AndroidBulletMvp都得到了完美的解决方案。同时AndroidBulletMvp还可以通过模板的方式快速建立一个轻量级MVP架构单元（包括View、Presenter、layout布局文件）。
+1. AndroidBulletMvp是一个轻量级、可以在不牺牲性能的前提下、可以大幅提高开发效率的敏捷框架。
+2. 通过kotlin的协程技术，节省异步网络并发请求时候的线程消耗，从而提升开发效率。
+3. 通过一行注解轻松实现布局文件的加载显示、titbar的自动添加（不需要写在布局文件中）
+4. 通过调用addView方法实现在页面（Activity Fragment）覆盖View. 网络异常、空页面、加载页面等页面可以轻松实现动态加载无需预先写在布局文件中
+5. 对网络请求进行链式调用封装，以及抽象出相同的功能以及流程从而提高开发效率（业务层代码开发者只需要处理核心业务，而不需要关心每次网络请求的异常处理、以及数据异常处理。如果遇到特殊需求，可以通过添加异常回调单独处理异常情况）
+6. 同过添加AS模板文件，实现MVP模型的快速创建。除了每个组件的初始化代码外（Activity：oncreate（）Fragment：onViewCreate（） Presenter：onCreate（）），无需任何样板代码。
+7. 轻量级、如果您用 kotlin语言开发app，对app的体积增加不足50K，几乎可以忽略不计。
+
+
 ## 快速上手指南
 ### 应用模板快速创建文件
-#### 1.添加远程依赖库  
-      在module添加AndroidBulletMvp的远程依赖库 implementation 'androidx.appcompat:appcompat:1.1.0' 
-#### 2. 添加模板   
+#### 1.添加远程依赖库
+
+     Add it in your root build.gradle at the end of repositories:
+
+     	allprojects {
+     		repositories {
+     			...
+     			maven { url 'https://jitpack.io' }
+     		}
+     	}
+     Step 2. Add the dependency
+
+     	dependencies {
+     	        implementation 'com.github.openVS-liu:AndroidBulletMvp:v1.0.0'
+     	}
+
+#### 2. 添加模板
   下载项目根目录下temples文件夹中的两个模板文件夹（mvpActiviy、mvpFrament）并保存到Android Studio模块文件夹下。
   如果是Mac操作系统则默认为/Applications/Android Studio.app/Contents/plugins/android/lib/templates, Windows系统的话由于差异比较大，就  默认为空了，可以自行配置[Android Studio安装目录]/plugins/android/lib/templates（这里只需要配置一次即可，插件将自动保存该位置）。
 ####  3.使用模板创建View 、Presenter以及layout布局文件。
-   右击任意package目录- New - Activity -mvpAcitiviy。  
+   右击任意package目录- New - Activity -mvpAcitiviy。 （创建Fragment为 右击任意package目录- New - Fragment -mvpFragment ）
+
   ![image](https://github.com/openVS-liu/AndroidBulletMvp/blob/master/images/2020-01-111.png)
   填写模块信息  
   ![image](https://github.com/openVS-liu/AndroidBulletMvp/blob/master/images/2020-01-13.png)  

@@ -1,7 +1,5 @@
 package  com.bullet.mvp;
 
-
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
@@ -26,6 +24,5 @@ public @interface ViewInit {
     boolean contentViewBlowTitleBar() default true; // layout视图是否需要显示在titleBar下方，
 
     int titleLayoutId() default 0; // 使用自定义的titilBar布局文件，必须是一个Relative Layout
-
 
 }
