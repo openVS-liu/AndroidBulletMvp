@@ -358,6 +358,41 @@ public @interface ViewInit {
     
 ```
 
+## 订制自己app的UI
+#### titleBar样式订制
+
+方法1： 在module的layout文件夹中新建名称为 mvp_titlebar_layout.xml的RelativeLayout布局文件，编译的时候会覆盖掉       AndroidBulletMvp的同名文件  
+方法2： 修改values文件夹下相关属性。相关属性如下：
+
+```
+   <!--标题文字颜色 -->
+    <color name="mvp_title_text_color">@android:color/white</color>
+    <!-- titleBar背景色 -->
+    <color name="mvp_title_bar_bg_color">@android:color/holo_blue_dark</color>
+    <!-- titleBar底部的分割线颜色 -->
+    <color name="mvp_title_bar_diver_color">@android:color/darker_gray</color>
+    <!-- titleBar添加到右上角的文本的颜色 -->
+    <color name="mvp_title_bar_right_button_color">@android:color/white</color>
+    
+    <!-- titleBar的高度 -->
+    <dimen name="mvp_titleBar_height">44dp</dimen>
+    <!-- titleBar的title文本的大小 -->
+    <dimen name="mvp_title_size">18sp</dimen>
+    <!-- titleBar默认的padding -->
+    <dimen name="mvp_default_padding">16dp</dimen>
+    <!-- titleBar添加到右上角的文本的大小 -->
+    <dimen name="mvp_title_bar_right_button_text_size">15sp</dimen>
+
+```
+
+#### titleBar样式订制订制自己的出错页面
+在module的layout文件夹中新建名称为 mvp_net_err.xml的布局文件,并且必须包含id为R.id.mvp_err_image的View，此View用于出错后，点击重试功能。
+
+#### titleBar样式订制订制自己的出错页面
+在module的layout文件夹中新建名称为 mvp_loading_progress.xml的布局文件,并且必须包含id为loading_text的TextView，此TextView用于展示出错文案。
+
+
+
  
 
 
