@@ -9,7 +9,6 @@ import android.view.*
 import android.widget.*
 import com.bullet.request.Container
 import com.bullet.request.IRequest
-import com.example.net.R
 import java.util.*
 
 

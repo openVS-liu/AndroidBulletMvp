@@ -1,7 +1,6 @@
 package  com.bullet.mvp;
 
 
-import com.example.net.R;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
