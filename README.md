@@ -26,9 +26,7 @@
      	        implementation 'com.github.openVS-liu:AndroidBulletMvp:v1.0.0'
      	}
 
-#### 2. [一行注解代码完成titleBar的动态加载和显示：
-](https://www.jianshu.com/p/7d177bbfa6e7)
-  下载项目根目录下temples文件夹中的两个模板文件夹（mvpActiviy、mvpFrament）并保存到Android Studio模块文件夹下。
-  如果是Mac操作系统则默认为/Applications/Android Studio.app/Contents/plugins/android/lib/templates, Windows系统的话由于差异比较大，就  默认为空了，可以自行配置[Android Studio安装目录]/plugins/android/lib/templates（这里只需要配置一次即可，插件将自动保存该位置）。
-  #### 3. [极致敏捷的http/https网络请求：](https://www.jianshu.com/p/d351b60ad453)
-   #### 4. [自定自己的主题：](https://www.jianshu.com/p/70fc1e9b6519)
+#### 2. [一行注解代码完成titleBar的动态加载和显示](https://www.jianshu.com/p/7d177bbfa6e7)
+  
+#### 3. [极致敏捷的http/https网络请求](https://www.jianshu.com/p/d351b60ad453)
+ #### 4. [自定自己的主题](https://www.jianshu.com/p/70fc1e9b6519)
