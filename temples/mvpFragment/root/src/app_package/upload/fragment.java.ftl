@@ -6,10 +6,11 @@ import androidx.annotation.Nullable;
 <#if applicationPackage??>
 import ${applicationPackage}.R;
 </#if>
-<#if isShowTitleBar> 
-@ViewInit(layout = R.layout.fragment_${layout}, title = "${title}")
+<#if isShowTitleBar>
+
+@ViewInit(layoutName= "fragment_${layout}", title = "${title}")
 <#else>
-@ViewInit(layout = R.layout.fragment_${layout}, showTitleBar=false")
+@ViewInit(layoutName= "fragment_${layout}", showTitleBar=false")
 </#if>
 
 

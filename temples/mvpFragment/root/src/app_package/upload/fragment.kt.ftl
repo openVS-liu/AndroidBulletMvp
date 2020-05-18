@@ -11,9 +11,9 @@ import ${applicationPackage}.R
 import kotlinx.android.synthetic.main.fragment_${layout}.*;
 </#if>
 <#if isShowTitleBar> 
-@ViewInit(layout = R.layout.fragment_${layout}, title = "${title}")
+@ViewInit(layoutName= "fragment_${layout}", title = "${title}")
 <#else>
-@ViewInit(layout = R.layout.fragment_${layout}, showTitleBar=false")
+@ViewInit(layoutName= "fragment_${layout}", showTitleBar=false")
 </#if>
 class ${moudle}Fragment : MvpFragment <${moudle}Presenter?>() {
 

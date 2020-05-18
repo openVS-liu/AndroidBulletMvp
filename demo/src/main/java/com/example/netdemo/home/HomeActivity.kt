@@ -14,7 +14,7 @@ import com.example.netdemo.DetailActivity
 import com.example.netdemo.R;
 import kotlinx.android.synthetic.main.activity_home.recyclerView
 
-@ViewInit(layout = R.layout.activity_home, title = "城市列表")
+@ViewInit(layoutName = "activity_home", title = "城市列表")
 class HomeActivity : MvpActivity<HomePresenter?>() {
     var adapter = CityAdapter()
 

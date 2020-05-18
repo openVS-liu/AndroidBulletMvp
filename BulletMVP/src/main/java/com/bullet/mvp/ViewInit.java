@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
 public @interface ViewInit {
-    int layout() default 0;  //页面布局文件的layoutId
+    String layoutName() ;  //页面布局文件的名称，之所以用String而不是int 是因为module作为library无法使用 R.layout.xxxx 变量
 
     String title() default ""; // titleBar 需要显示的标题
 

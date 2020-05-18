@@ -23,8 +23,11 @@ interface IView : Container {
         this.viewInit = viewInit
         this.rootView = rootView
         initTitleBar()
-        if (viewInit?.layout != 0) {
-            addView(viewInit?.layout!!)
+        if (viewInit?.layoutName != null) {
+            var layoutId= rootView?.context?.resources?.getIdentifier(viewInit?.layoutName , "layout", rootView?.context?.packageName);
+            if (layoutId != null) {
+                addView(layoutId)
+            }
         }
 
     }
