@@ -1,2 +1,3 @@
-include ':BulletMVP', ':demo'
+include ':BulletMVP'
+include  ':demo'
 //include ':app', ':net_core_library', ':JLUpload', ':JLFileDownload', ':JLEncrypt'
