@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/net_err"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@android:color/white"
+    android:clickable="true">
+
+    <ImageView
+        android:id="@+id/mvp_err_image"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+
+        android:layout_marginBottom="20dp"
+        android:src="@mipmap/mvp_icon_no_wlan"
+         />
+
+
+    <TextView
+        android:id="@+id/mvp_err_text"
+
+        android:text="网络连接异常，请稍后再试！"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="15sp"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content" />
+
+
+
+
+</LinearLayout>
