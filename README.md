@@ -26,7 +26,9 @@
      	        implementation 'com.github.openVS-liu:AndroidBulletMvp:v1.0.0'
      	}
 
-#### 2. [一行注解代码完成titleBar的动态加载和显示](https://www.jianshu.com/p/7d177bbfa6e7)
-  
-#### 3. [极致敏捷的http/https网络请求](https://www.jianshu.com/p/d351b60ad453)
- #### 4. [自定自己的主题](https://www.jianshu.com/p/70fc1e9b6519)
+#### 2. [Android Bullet框架介绍1-一行代码搞定Activity、Fragment的titlebar以及布局的加载](https://editor.csdn.net/md/?articleId=107634119)
+#### 3. [Bullet框架介绍2-在 Activity或Fragment中动态添加或者移出View](https://editor.csdn.net/md/?articleId=107634214)
+ ### 4. [Android Bulle介绍3-Bulle中的MVP模式](https://editor.csdn.net/md/?articleId=107634720)
+ ### 5. [Android Bullet框架介绍4 一使用Android studio模板快速创建View、Presenter以及布局文件](https://editor.csdn.net/md/?articleId=105988275)
+ ### 6. [Android Android Bullt 介绍5 -网络请求，敏捷到不剩底裤](https://editor.csdn.net/md/?articleId=105988513)
+ ### 7. [Android Bullet介绍6——自定义自己的主题](https://editor.csdn.net/md/?articleId=105988602)
