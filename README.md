@@ -32,3 +32,4 @@
  #### 5. [Android Bullet框架介绍4 一使用Android studio模板快速创建View、Presenter以及布局文件](https://editor.csdn.net/md/?articleId=105988275)
  #### 6. [Android Android Bullt 介绍5 -网络请求，敏捷到不剩底裤](https://editor.csdn.net/md/?articleId=105988513)
  #### 7. [Android Bullet介绍6——自定义自己的主题](https://editor.csdn.net/md/?articleId=105988602)
+ #### 8. [Android Bullet框架和rxjava+retrofit框架使用对比](https://editor.csdn.net/md/?articleId=107658797)
